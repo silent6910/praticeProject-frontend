@@ -3,11 +3,14 @@ import Router from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import HelloWorld from '@/components/HelloWorld'
 import ProjectIndex from '@/components/ProjectIndex'
+import login from '@/components/Login'
+import GSignInButton from 'vue-google-signin-button'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
+Vue.use(GSignInButton)
 
 export default new Router({
   routes: [
@@ -20,6 +23,11 @@ export default new Router({
       path: '/test',
       name: 'ProjectIndex',
       component: ProjectIndex
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })

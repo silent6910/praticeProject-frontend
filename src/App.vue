@@ -1,10 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="www.google.com">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="www.google.com">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="www.google.com">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="www.google.com">Contact</a>
+        </li>
+      </ul>
+    </div>
     <router-view/>
   </div>
 </template>
-
 <script>
 export default {
   name: 'App'

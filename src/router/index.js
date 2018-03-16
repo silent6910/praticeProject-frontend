@@ -4,6 +4,8 @@ import BootstrapVue from 'bootstrap-vue'
 import HelloWorld from '@/components/HelloWorld'
 import ProjectIndex from '@/components/ProjectIndex'
 import login from '@/components/Login'
+import VueCookie from 'vue-cookie'
+import FBSignInButton from 'vue-facebook-signin-button'
 import GSignInButton from 'vue-google-signin-button'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -11,6 +13,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(Router)
 Vue.use(BootstrapVue)
 Vue.use(GSignInButton)
+Vue.use(FBSignInButton)
+Vue.use(VueCookie)
 
 export default new Router({
   routes: [

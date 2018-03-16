@@ -1,49 +1,56 @@
 <template>
+  <div>
   <g-signin-button
     :params="googleSignInParams"
     @success="onSignInSuccess"
     @error="onSignInError">
     Sign in with Google
   </g-signin-button>
+    <fb-signin-button
+      :params="fbSignInParams"
+      @success="onFBSignInSuccess"
+      @error="onFBSignInError">
+      Sign in with Facebook
+    </fb-signin-button>
+  </div>
+
 </template>
 
 <script>
+  //todo 這部分還有很多要優化的地方，但因為是跳躍式的方式，所以暫時會不知道要怎麼處理
+
   export default {
+    /** 這邊是使用第三方套件的 https://github.com/phanan/vue-google-signin-button  and  https://github.com/phanan/vue-facebook-signin-button
+     *  將來希望可以custom化
+     */
     data () {
       return {
-        /**
-         * The Auth2 parameters, as seen on
-         * https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams.
-         * As the very least, a valid client_id must present.
-         * @type {Object}
-         */
         googleSignInParams: {
           client_id: '841955498576-h716mura55f07q6fddt11s6ihoia13m4.apps.googleusercontent.com'
+        },
+        fbSignInParams: {
+          scope: 'email,user_likes',
+          return_scopes: true
         }
       }
     },
     methods: {
+      //facebook login handle
+      onFBSignInSuccess (response) {
+        FB.api('/me', dude => {
+          let accessToken = response.authResponse.accessToken;
+          this.setJwtToken(accessToken, 'facebook');
+        })
+      },
+      onFBSignInError (error) {
+        console.log('OH NOES', error)
+      },
+      //google login handle
       onSignInSuccess (googleUser) {
-        let accessToken=googleUser.Zi.access_token;
-        console.log(accessToken);
-        var instance = axios.create({
-          headers: {'Authorization': "Bearer " + accessToken ,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',}
-        });
-        //todo 已經可以傳access token 換jwt token回來了
-        instance.get('http://localhost/api/login/google/callback')
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        // `googleUser` is the GoogleUser object that represents the just-signed-in user.
-        // See https://developers.google.com/identity/sign-in/web/reference#users
+        //todo 下方這取得assess_token的方式不妥
+        let accessToken = googleUser.Zi.access_token;
 
-        // const profile = googleUser.getBasicProfile() ;// etc etc
-        // console.log();
+        this.setJwtToken(accessToken,'google');
       },
       onSignInError (error) {
         // `error` contains any error occurred.
@@ -54,6 +61,14 @@
 </script>
 
 <style>
+  .fb-signin-button {
+    /* This is where you control how the button looks. Be creative! */
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: #4267b2;
+    color: #fff;
+  }
   .g-signin-button {
     /* This is where you control how the button looks. Be creative! */
     display: inline-block;
@@ -63,4 +78,5 @@
     color: #fff;
     box-shadow: 0 3px 0 #0f69ff;
   }
+
 </style>

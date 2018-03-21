@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import HelloWorld from '@/components/HelloWorld'
 import ProjectIndex from '@/components/ProjectIndex'
+import MainBar from '@/components/App'
 import login from '@/components/Login'
 import VueCookie from 'vue-cookie'
 import FBSignInButton from 'vue-facebook-signin-button'
@@ -11,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(Router)
+Vue.use(MainBar)
 Vue.use(BootstrapVue)
 Vue.use(GSignInButton)
 Vue.use(FBSignInButton)
@@ -19,9 +21,8 @@ Vue.use(VueCookie)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/app',
+      component: HelloWorld,
     },
     {
       path: '/test',
@@ -32,6 +33,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/',
+      name: 'app',
+      component: MainBar
     }
   ]
 })

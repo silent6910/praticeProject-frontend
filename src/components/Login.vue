@@ -40,6 +40,7 @@
         FB.api('/me', dude => {
           let accessToken = response.authResponse.accessToken;
           this.setJwtToken(accessToken, 'facebook');
+          history.back();
         })
       },
       onFBSignInError (error) {
@@ -50,7 +51,8 @@
         //todo 下方這取得assess_token的方式不妥
         let accessToken = googleUser.Zi.access_token;
 
-        this.setJwtToken(accessToken,'google');
+        thigs.setJwtToken(accessToken,'google');
+        history.back();
       },
       onSignInError (error) {
         // `error` contains any error occurred.

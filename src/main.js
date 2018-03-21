@@ -50,3 +50,7 @@ Vue.prototype.setJwtToken = function (accessToken, provider) {
       console.log(error)
     })
 }
+ // Vue.prototype.getJwtToken = function () {
+ //   console.log(1234);
+ //   return Vue.cookie.get('jwtToken');
+ // }

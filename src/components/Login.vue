@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  //todo 這部分還有很多要優化的地方，但因為是跳躍式的方式，所以暫時會不知道要怎麼處理
+  //todo 這部分還有很多要優化的地方，但因為是跳躍式的學習方式，所以暫時會不知道要怎麼處理
 
   export default {
     /** 這邊是使用第三方套件的 https://github.com/phanan/vue-google-signin-button  and  https://github.com/phanan/vue-facebook-signin-button
@@ -40,7 +40,7 @@
         FB.api('/me', dude => {
           let accessToken = response.authResponse.accessToken;
           this.setJwtToken(accessToken, 'facebook');
-          history.back();
+
         })
       },
       onFBSignInError (error) {
@@ -51,8 +51,8 @@
         //todo 下方這取得assess_token的方式不妥
         let accessToken = googleUser.Zi.access_token;
 
-        thigs.setJwtToken(accessToken,'google');
-        history.back();
+        this.setJwtToken(accessToken,'google');
+
       },
       onSignInError (error) {
         // `error` contains any error occurred.

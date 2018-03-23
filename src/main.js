@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store/store'
 
 Vue.config.productionTip = false
 
@@ -11,7 +12,8 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })
 window.fbAsyncInit = function () {
   FB.init({
@@ -40,17 +42,20 @@ Vue.prototype.setJwtToken = function (accessToken, provider) {
       'Content-Type': 'application/json'
     }
   })
+  var self=this;
+  self.$store.state.jwtToken=12345679;
+  //todo 異步處理，媽的
+
   // todo 已經可以傳access token 換jwt token回來了
-  return instance.get('http://localhost/api/login/' + provider + '/callback')
+  instance.get('http://localhost/api/login/' + provider + '/callback')
     .then(function (response) {
-      jwtToken = response.data.data.token
+      jwtToken = response.data.data.token;
       Vue.cookie.set('jwtToken',jwtToken,100);
+      //todo    router.go(-1)不應該放在這邊的，但嵌套異步處理的解決方式目前還沒想到
+      router.go(-1);
     })
     .catch(function (error) {
+      console.log(self.$store.state.jwtToken);
       console.log(error)
     })
 }
- // Vue.prototype.getJwtToken = function () {
- //   console.log(1234);
- //   return Vue.cookie.get('jwtToken');
- // }

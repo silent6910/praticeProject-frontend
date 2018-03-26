@@ -44,7 +44,7 @@ Vue.prototype.setJwtToken = function (accessToken, provider) {
   })
   var self=this;
   self.$store.state.jwtToken=12345679;
-  //todo 異步處理，媽的
+  //todo 異步處理
 
   // todo 已經可以傳access token 換jwt token回來了
   instance.get('http://localhost/api/login/' + provider + '/callback')

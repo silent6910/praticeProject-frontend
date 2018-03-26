@@ -40,11 +40,11 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'app',
       component: MainBar,
       children: [
         {
           path: '',
+          name: 'index',
           component: Article
         },
         {

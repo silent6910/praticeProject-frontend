@@ -12,6 +12,8 @@ import FBSignInButton from 'vue-facebook-signin-button'
 import GSignInButton from 'vue-google-signin-button'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import articleContent from '@/components/ArticleContent'
+const pageNotFound = r => require.ensure([], () => r(require('@/components/PageNotFound')), 'pageNotFound');
 
 
 Vue.use(Router)
@@ -24,6 +26,14 @@ Vue.use(VueCookie)
 
 export default new Router({
   routes: [
+    {
+      path: '*',
+      redirect: 'pageNotFound'
+    },
+    {
+      path:'/pageNotFound',
+      component: pageNotFound
+    },
     {
       path: '/app',
       component: HelloWorld,
@@ -50,6 +60,10 @@ export default new Router({
         {
           path:'article_create',
           component:ArticleCreate
+        },
+        {
+          path:'article/:id',
+          component:articleContent
         }
         ]
     }

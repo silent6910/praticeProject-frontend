@@ -13,6 +13,8 @@ import GSignInButton from 'vue-google-signin-button'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import articleContent from '@/components/ArticleContent'
+import ArticleEdit from '@/components/ArticleEdit'
+
 const pageNotFound = r => require.ensure([], () => r(require('@/components/PageNotFound')), 'pageNotFound');
 
 
@@ -31,7 +33,7 @@ export default new Router({
       redirect: 'pageNotFound'
     },
     {
-      path:'/pageNotFound',
+      path: '/pageNotFound',
       component: pageNotFound
     },
     {
@@ -58,15 +60,20 @@ export default new Router({
           component: Article
         },
         {
-          path:'article_create',
-          component:ArticleCreate
+          path: 'article_create',
+          component: ArticleCreate
         },
         {
-          path:'article/:id',
-          component:articleContent
+          path: 'article/:id',
+          component: articleContent
+        },
+        {
+          path: 'article/:id/edit',
+          name:'article_edit',
+          component: ArticleEdit
         }
-        ]
+      ]
     }
-    ]
+  ]
 
 })

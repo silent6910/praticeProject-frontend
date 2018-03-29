@@ -19,7 +19,7 @@
             <td class="col-2">{{article.created_at}}</td>
             <td class="btns col-2">
               <router-link class="btn btn-success" :to="{path: 'article/'+article.id}">查看</router-link>
-              <router-link class="btn btn-info btn-xs" v-if='article.isAuthor' :to="{path: 'article_update'}">編輯</router-link>
+              <router-link class="btn btn-info btn-xs" v-if='article.isAuthor' :to="{name: 'article_edit',params: { id: article.id }}">編輯</router-link>
               <router-link class="btn btn-danger btn-xs" v-if='article.isAuthor' :to="{path: 'article_delete'}">刪除</router-link>
             </td>
           </tr>

@@ -59,3 +59,28 @@ Vue.prototype.setJwtToken = function (accessToken, provider) {
       console.log(error)
     })
 }
+Vue.prototype.deleteArticle = function (id,callback = function () {
+  self.$router.replace({name: 'index'});
+}) {
+  let jwt = Vue.cookie.get('jwtToken');
+  var instance = axios.create({
+    headers: {
+      'Authorization': 'Bearer ' + jwt,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  var self=this;
+  //todo 異步處理
+  // todo 已經可以傳access token 換jwt token回來了
+  instance.delete('http://localhost/api/article/' + id)
+    .then(function (response) {
+      console.log(Vue.version);
+
+      callback();
+    //  Vue.route.replace({name: 'index'});
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}

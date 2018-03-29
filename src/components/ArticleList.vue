@@ -20,7 +20,7 @@
             <td class="btns col-2">
               <router-link class="btn btn-success" :to="{path: 'article/'+article.id}">查看</router-link>
               <router-link class="btn btn-info btn-xs" v-if='article.isAuthor' :to="{name: 'article_edit',params: { id: article.id }}">編輯</router-link>
-              <router-link class="btn btn-danger btn-xs" v-if='article.isAuthor' :to="{path: 'article_delete'}">刪除</router-link>
+              <button class="btn btn-danger btn-xs" v-if='article.isAuthor' v-on:click="deleteArticle(article.id, fetchData())">刪除</button>
             </td>
           </tr>
           </template>
@@ -39,6 +39,12 @@
         return {
           articles:[]
         }
+      },
+      beforeRouteEnter (to, from, next) {
+        next(vm => {
+          console.log(312);
+        vm.fetchData();
+        })
       },
       created:function () {
         this.fetchData()

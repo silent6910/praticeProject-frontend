@@ -14,6 +14,10 @@
               </select>
             </div>
             <div class="form-group">
+              <label for="title" class="control-label">Author</label>
+              <p class="form-control" id="title">{{article.user.name}}</p>
+            </div>
+            <div class="form-group">
               <label for="title" class="control-label">Title</label>
               <p class="form-control" id="title">{{article.title}}</p>
             </div>

@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>',
   store
 })
@@ -26,7 +26,8 @@ window.fbAsyncInit = function () {
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0]
   if (d.getElementById(id)) return
-  js = d.createElement(s); js.id = id
+  js = d.createElement(s);
+  js.id = id
   js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.12&appId=540611569645359&autoLogAppEvents=1'
   fjs.parentNode.insertBefore(js, fjs)
 }(document, 'script', 'facebook-jssdk'))
@@ -42,20 +43,41 @@ Vue.prototype.setJwtToken = function (accessToken, provider) {
       'Content-Type': 'application/json'
     }
   })
-  var self=this;
-  self.$store.state.jwtToken=12345679;
+  var self = this;
+  self.$store.state.jwtToken = 12345679;
   //todo 異步處理
 
   // todo 已經可以傳access token 換jwt token回來了
   instance.get('http://localhost/api/login/' + provider + '/callback')
     .then(function (response) {
       jwtToken = response.data.data.token;
-      Vue.cookie.set('jwtToken',jwtToken,100);
+      Vue.cookie.set('jwtToken', jwtToken, 100);
       //todo    router.go(-1)不應該放在這邊的，但嵌套異步處理的解決方式目前還沒想到
       router.go(-1);
     })
     .catch(function (error) {
       console.log(self.$store.state.jwtToken);
+      console.log(error)
+    })
+}
+
+Vue.prototype.deleteArticle = function (id, callback = function () {
+  self.$router.replace({name: 'index'});
+}) {
+  let jwt = Vue.cookie.get('jwtToken');
+  var instance = axios.create({
+    headers: {
+      'Authorization': 'Bearer ' + jwt,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  var self = this;
+  instance.delete('http://localhost/api/article/' + id)
+    .then(function (response) {
+      callback();
+    })
+    .catch(function (error) {
       console.log(error)
     })
 }

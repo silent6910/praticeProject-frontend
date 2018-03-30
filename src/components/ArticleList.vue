@@ -11,7 +11,7 @@
           </tr>
           </thead>
           <tbody v-cloak>
-          <template v-for="article in articles">
+          <template v-for="(article, index) in articles">
           <tr class="d-flex">
             <td class="col-2">{{article.type}}</td>
             <td class="col-2">{{article.title}}</td>
@@ -20,7 +20,7 @@
             <td class="btns col-2">
               <router-link class="btn btn-success" :to="{path: 'article/'+article.id}">查看</router-link>
               <router-link class="btn btn-info btn-xs" v-if='article.isAuthor' :to="{name: 'article_edit',params: { id: article.id }}">編輯</router-link>
-              <router-link class="btn btn-danger btn-xs" v-if='article.isAuthor' :to="{path: 'article_delete'}">刪除</router-link>
+              <button class="btn btn-danger btn-xs" v-if='article.isAuthor' v-on:click="deleteArticle(article.id, removeRow(index))">刪除</button>
             </td>
           </tr>
           </template>
@@ -73,7 +73,13 @@
               .catch(function (error) {
                 console.log(error)
               })
-          }
+          },
+        removeRow(index)
+        {
+          //reset data has some problem,so i just remove the row.
+          console.log(this.articles);
+          this.articles.splice(index, 1);
+        }
       }
     }
 </script>

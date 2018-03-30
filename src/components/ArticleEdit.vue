@@ -1,7 +1,8 @@
 <template>
   <div class="row">
     <div class="col-xs-12 col-md-10 col-lg-6">
-      <form v-on:submit.prevent="update()" class="panel panel-default" id="update" enctype="application/x-www-form-urlencoded">
+      <form v-on:submit.prevent="update()" class="panel panel-default" id="update"
+            enctype="application/x-www-form-urlencoded">
         <div class="panel-body">
           <fieldset>
             <legend class="section">發表文章</legend>
@@ -42,7 +43,8 @@
         type: '',
         article: []
       }
-    }, created: function () {
+    },
+    created: function () {
       this.fetchContent()
     },
     methods: {

@@ -28,10 +28,12 @@
           </fieldset>
         </div>
     </div>
+    <comment></comment>
   </div>
 </template>
 
 <script>
+  const CommentCreate = require('@/components/CommentCreate').default;
   export default {
     name: "article-content",
     data()
@@ -44,6 +46,9 @@
   created:function () {
     this.fetchContent()
   },
+    components:{
+      'comment':CommentCreate
+    },
   methods:{
     fetchContent()
       {

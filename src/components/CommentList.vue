@@ -12,17 +12,17 @@
         <tbody v-cloak>
         <template v-for="(comment, index) in comments">
           <tr class="d-flex">
-            <td class="col-2">{{isEdit[index]}}</td>
+            <td class="col-2">{{comment.user.name}}</td>
             <td>
               <p v-if="isEdit[index]">{{comment.content}}</p>
               <input    v-else  v-model="comment.content">
-            </td>rewwr
+            </td>
             <td class="col-2">{{comment.created_at}}</td>
             <td class="btns col-2">
               <div v-if='comment.isAuthor'>
               <button class="btn btn-info btn-xs"  v-if='isEdit[index]' v-on:click="changeIsEdit(index)">編輯</button>
               <button class="btn btn-success btn-xs" v-else v-on:click=" submitEdit(index)">提交</button>
-              <button class="btn btn-danger btn-xs" v-if='comment.isAuthor' v-on:click="deleteArticle(comment.id, removeRow(index))">刪除</button>
+              <button class="btn btn-danger btn-xs"  v-on:click="deleteComment(index)">刪除</button>
               </div>
             </td>
           </tr>
@@ -118,6 +118,34 @@
           })
           let requestData = {'content': this.comments[index]['content']};
           return instance.patch(`http://localhost/api/article/${this.articleId}/comment/${this.comments[index]['id']}`, requestData)
+            .then(function (response) {
+              console.log(response);
+              if (response.data.code == 200) {
+                self.fetchComment(self.articleId);
+              }
+
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+        },
+        deleteComment(index)
+        {
+          let jwt = this.$cookie.get('jwtToken');
+
+          if (jwt === null) {
+            return;
+          }
+          //必須先把this存下來，否則進success，this call就不是我要的了
+          var self = this;
+          var instance = axios.create({
+            headers: {
+              'Authorization': 'Bearer ' + jwt,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+          instance.delete(`http://localhost/api/article/${this.articleId}/comment/${this.comments[index]['id']}`)
             .then(function (response) {
               console.log(response);
               if (response.data.code == 200) {

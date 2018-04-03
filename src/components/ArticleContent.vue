@@ -27,9 +27,11 @@
             </div>
           </fieldset>
         </div>
+      <comment-list v-bind:articleId="articleId"></comment-list>
+      <comment-create></comment-create>
     </div>
-    <comment-list articleId="articleId"></comment-list>
-    <comment-create></comment-create>
+
+
   </div>
 </template>
 

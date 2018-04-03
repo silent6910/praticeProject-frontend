@@ -27,27 +27,33 @@
             </div>
           </fieldset>
         </div>
+      <comment-list v-bind:articleId="articleId"></comment-list>
+      <comment-create></comment-create>
     </div>
-    <comment></comment>
+
+
   </div>
 </template>
 
 <script>
   const CommentCreate = require('@/components/CommentCreate').default;
+  const CommentList = require('@/components/CommentList').default;
   export default {
     name: "article-content",
     data()
     {
       return {
         type:'',
-        article:[]
+        article:[],
+        articleId:this.$route.params.id
       }
     },
   created:function () {
     this.fetchContent()
   },
     components:{
-      'comment':CommentCreate
+      'comment-create':CommentCreate,
+      'comment-list':CommentList
     },
   methods:{
     fetchContent()

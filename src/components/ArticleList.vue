@@ -15,7 +15,7 @@
           <tr class="d-flex">
             <td class="col-2">{{article.type}}</td>
             <td class="col-2">{{article.title}}</td>
-            <td class="col-2">{{article.author}}</td>
+            <td class="col-2">{{article.user.name}}</td>
             <td class="col-2">{{article.created_at}}</td>
             <td class="btns col-2">
               <router-link class="btn btn-success" :to="{path: 'article/'+article.id}">查看</router-link>
@@ -66,7 +66,7 @@
               .then(function (response) {
                 console.log(response);
                 if (response.data.code == 200) {
-                  self.articles = response.data.data;
+                  self.articles = response.data.data.data;
                 }
 
               })

@@ -5,15 +5,7 @@
         <div class="panel-body">
           <fieldset>
             <legend class="section">發表文章</legend>
-            <div class="form-group">
-              <label for="type" class="control-label">type</label>
-              <select class="form-control" id="type" name="type">
-                <option value="" selected="selected">--请选择--</option>
-                <option value="0">公告</option>
-                <option value="1">討論</option>
-                <option value="2">問題</option>
-              </select>
-            </div>
+            <article-type></article-type>
             <div class="form-group">
               <label for="title" class="control-label">Title</label>
               <input class="form-control" name="title" type="text" id="title">
@@ -35,8 +27,12 @@
 </template>
 
 <script>
+  const articleType = require('@/components/ArticleType').default;
   export default {
     name: "create-article",
+    components:{
+      'article-type':articleType,
+    },
     methods: {
       publish() {
         let publish = new FormData(document.getElementById('publish'));

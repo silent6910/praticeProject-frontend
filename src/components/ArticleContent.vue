@@ -4,15 +4,7 @@
         <div class="panel-body">
           <fieldset>
             <legend class="section">發表文章</legend>
-            <div class="form-group">
-              <label for="type" class="control-label">type</label>
-              <select class="form-control" v-model="article.type" id="type" name="type" disabled>
-                <option value="" >--请选择--</option>
-                <option value="0">公告</option>
-                <option value="1">討論</option>
-                <option value="2">問題</option>
-              </select>
-            </div>
+            <article-type :defaultType="article.type" :isDisable="true"></article-type>
             <div class="form-group">
               <label for="title" class="control-label">Author</label>
               <p class="form-control" id="title">{{article.user.name}}</p>
@@ -36,6 +28,7 @@
 </template>
 
 <script>
+  const articleType = require('@/components/ArticleType').default;
   const CommentCreate = require('@/components/CommentCreate').default;
   const CommentList = require('@/components/CommentList').default;
   export default {
@@ -53,7 +46,8 @@
   },
     components:{
       'comment-create':CommentCreate,
-      'comment-list':CommentList
+      'comment-list':CommentList,
+      'article-type':articleType
     },
   methods:{
     fetchContent()

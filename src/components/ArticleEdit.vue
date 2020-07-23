@@ -5,22 +5,14 @@
             enctype="application/x-www-form-urlencoded">
         <div class="panel-body">
           <fieldset>
-            <legend class="section">發表文章</legend>
-            <div class="form-group">
-              <label for="type" class="control-label">type</label>
-              <select class="form-control" v-model="article.type" id="type" name="type">
-                <option value="" selected="selected">--请选择--</option>
-                <option value="0">公告</option>
-                <option value="1">討論</option>
-                <option value="2">問題</option>
-              </select>
-            </div>
+            <legend class="section">Edit Article</legend>
+           <article-type :defaultType="article.type"></article-type>
             <div class="form-group">
               <label for="title" class="control-label">Title</label>
               <input class="form-control" v-bind:value="article.title" name="title" type="text" id="title">
             </div>
             <div class="form-group">
-              <label for="note" class="control-label">內容</label>
+              <label for="note" class="control-label">content</label>
               <input class="form-control" v-bind:value="article.content" name="content" type="text" id="note">
             </div>
           </fieldset>
@@ -36,8 +28,12 @@
 </template>
 
 <script>
+  const articleType = require('@/components/ArticleType').default;
   export default {
     name: "article-edit",
+    components:{
+      'article-type':articleType,
+    },
     data() {
       return {
         type: '',

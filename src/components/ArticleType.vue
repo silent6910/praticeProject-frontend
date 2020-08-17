@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import {apiURL} from "../main";
+
   export default {
     name: "article-type",
     data() {
@@ -45,11 +47,11 @@
             'Content-Type': 'application/json'
           }
         })
-        return instance.get('http://localhost/api/article/type')
+        return instance.get(apiURL + '/article/type')
           .then(function (response) {
             if (response.data.code == 200) {
               self.articleTypes = response.data.data;
-              console.log(self.articleTypes);
+
             }
 
           })

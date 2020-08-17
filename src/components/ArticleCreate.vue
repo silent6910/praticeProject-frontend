@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import {apiURL} from "../main";
+
   const articleType = require('@/components/ArticleType').default;
   export default {
     name: "create-article",
@@ -45,7 +47,7 @@
             'Content-Type': 'application/json'
           }
         })
-        instance.post('http://localhost/api/article', publish)
+        instance.post(apiURL + '/article', publish)
           .then(function (response) {
             if (response.data.code == 200) {
               //todo 沒有提示成功跟失敗，type有權限的問題

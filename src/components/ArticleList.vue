@@ -32,6 +32,8 @@
 </template>
 
 <script>
+    import {apiURL} from "../main";
+
     export default {
         name: "article-list",
       data()
@@ -46,6 +48,7 @@
       methods:{
           fetchData()
           {
+
             let jwt = this.$cookie.get('jwtToken');
 
             if (jwt === null) {
@@ -60,11 +63,11 @@
                 'Content-Type': 'application/json'
               }
             })
-            console.log(jwt);
+
             // todo 已經可以確認登入了
-            return instance.get('http://localhost/api/article')
+            return instance.get(apiURL+'/article')
               .then(function (response) {
-                console.log(response);
+
                 if (response.data.code == 200) {
                   self.articles = response.data.data.data;
                 }
@@ -77,7 +80,7 @@
         removeRow(index)
         {
           //reset data has some problem,so i just remove the row.
-          console.log(this.articles);
+
           this.articles.splice(index, 1);
         }
       }

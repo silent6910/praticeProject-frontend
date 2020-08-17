@@ -16,6 +16,7 @@
 
 </template>
 
+
 <script>
   //todo 這部分還有很多要優化的地方，但因為是跳躍式的學習方式，所以暫時會不知道要怎麼處理
 
@@ -26,7 +27,7 @@
     data () {
       return {
         googleSignInParams: {
-          client_id: '841955498576-h716mura55f07q6fddt11s6ihoia13m4.apps.googleusercontent.com'
+          client_id: '918922866995-gu8m81kkvbendcak1dj87p0l4cjrm56r.apps.googleusercontent.com'
         },
         fbSignInParams: {
           scope: 'email,user_likes',
@@ -48,8 +49,9 @@
       },
       //google login handle
       onSignInSuccess (googleUser) {
+
         //todo 下方這取得assess_token的方式不妥
-        let accessToken = googleUser.Zi.access_token;
+        let accessToken = Object.values(googleUser)[1].access_token
 
         this.setJwtToken(accessToken,'google');
 

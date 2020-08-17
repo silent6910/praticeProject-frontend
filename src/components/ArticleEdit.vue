@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import {apiURL} from "../main";
+
   const articleType = require('@/components/ArticleType').default;
   export default {
     name: "article-edit",
@@ -59,8 +61,8 @@
           }
         })
         // todo 已經可以確認登入了
-        console.log(`http://localhost/api/article/${this.$route.params.id}/edit`);
-        return instance.get(`http://localhost/api/article/${this.$route.params.id}/edit`)
+
+        return instance.get(apiURL + `/article/${this.$route.params.id}/edit`)
           .then(function (response) {
             if (response.data.code == 200) {
               // 如果文章為空則導至404page，不能使用router.push，因為有history，會導致LOOP
@@ -88,9 +90,9 @@
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         })
-        instance.patch(`http://localhost/api/article/${this.$route.params.id}`, updateForm)
+        instance.patch(apiURL + `/article/${this.$route.params.id}`, updateForm)
           .then(function (response) {
-            console.log(response)
+
             if (response.data.code == 200) {
               //todo 沒有提示成功跟失敗，type有權限的問題
               self.$router.push({name: 'index'});

@@ -45,6 +45,8 @@
 
 <script>
   //todo router-view 裡面的東西需要優化
+  import {apiURL} from "../main";
+
   export default {
     name: "app.vue",
     data() {
@@ -77,9 +79,9 @@
           }
         })
         // todo 已經可以確認登入了 type轉換
-        return instance.get('http://localhost/api/user/')
+        return instance.get(apiURL + '/user/')
           .then(function (response) {
-            console.log(jwt);
+
             if (response.data.code == 200) {
               self.username = response.data.data.name;
               self.isLogin = true;
@@ -106,9 +108,9 @@
           }
         })
         // todo 已經可以確認登入了 type轉換
-        return instance.post('http://localhost/api/logout')
+        return instance.post(apiURL + '/logout')
           .then(function (response) {
-            console.log(response)
+
             if (response.data.code == 200) {
               self.$router.go(0);
             }

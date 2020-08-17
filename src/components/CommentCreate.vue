@@ -21,6 +21,8 @@
 </template>
 
 <script>
+    import {apiURL} from "../main";
+
     export default {
         name: "comment-create",
       methods:{
@@ -35,7 +37,7 @@
                 'Content-Type': 'application/json'
               }
             })
-            instance.post(`http://localhost/api/article/${this.$route.params.id}/comment`, publishForm)
+            instance.post(apiURL + `/article/${this.$route.params.id}/comment`, publishForm)
               .then(function (response) {
                 if (response.data.code == 200) {
                   self.$router.go(0);

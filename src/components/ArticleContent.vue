@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import {apiURL} from "../main";
+
   const articleType = require('@/components/ArticleType').default;
   const CommentCreate = require('@/components/CommentCreate').default;
   const CommentList = require('@/components/CommentList').default;
@@ -66,12 +68,12 @@
           }
         })
         // todo 已經可以確認登入了
-        return instance.get('http://localhost/api/article/' + this.$route.params.id)
+        return instance.get(apiURL + '/article/' + this.$route.params.id)
           .then(function (response) {
-            console.log(response);
+
             if (response.data.code == 200) {
               self.article = response.data.data;
-              console.log(self.article);
+
             }
 
           })

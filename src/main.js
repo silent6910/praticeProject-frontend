@@ -4,7 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/store'
+import GSignInButton from 'vue-google-signin-button'
 
+export const apiURL = 'http://localhost/api/v1'
+Vue.use(GSignInButton)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -48,8 +51,9 @@ Vue.prototype.setJwtToken = function (accessToken, provider) {
   //todo 異步處理
 
   // todo 已經可以傳access token 換jwt token回來了
-  instance.get('http://localhost/api/login/' + provider + '/callback')
+  instance.get(apiURL + '/login/' + provider + '/callback')
     .then(function (response) {
+      console.log(response);
       jwtToken = response.data.data.token;
       Vue.cookie.set('jwtToken', jwtToken, 100);
       //todo    router.go(-1)不應該放在這邊的，但嵌套異步處理的解決方式目前還沒想到
@@ -73,7 +77,7 @@ Vue.prototype.deleteArticle = function (id, callback = function () {
     }
   })
   var self = this;
-  instance.delete('http://localhost/api/article/' + id)
+  instance.delete(apiURL + '/article/' + id)
     .then(function (response) {
       callback();
     })

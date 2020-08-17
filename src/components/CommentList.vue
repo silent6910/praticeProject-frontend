@@ -34,6 +34,8 @@
 </template>
 
 <script>
+    import {apiURL} from "../main";
+
     export default {
         name: "comment-list",
       data(){
@@ -59,7 +61,7 @@
       methods:{
           fetchComment(articleId)
           {
-            console.log(articleId);
+
 
             let jwt = this.$cookie.get('jwtToken');
 
@@ -76,9 +78,9 @@
               }
             })
             // todo 已經可以確認登入了
-            return instance.get(`http://localhost/api/article/${this.articleId}/comment`)
+            return instance.get(apiURL + `/article/${this.articleId}/comment`)
               .then(function (response) {
-                console.log(response);
+
                 if (response.data.code == 200) {
                   console.log(response.data.data.data);
                   self.comments = response.data.data.data;
@@ -117,7 +119,7 @@
             }
           })
           let requestData = {'content': this.comments[index]['content']};
-          return instance.patch(`http://localhost/api/article/${this.articleId}/comment/${this.comments[index]['id']}`, requestData)
+          return instance.patch(apiURL + `/article/${this.articleId}/comment/${this.comments[index]['id']}`, requestData)
             .then(function (response) {
               console.log(response);
               if (response.data.code == 200) {
@@ -145,7 +147,7 @@
               'Content-Type': 'application/json'
             }
           })
-          instance.delete(`http://localhost/api/article/${this.articleId}/comment/${this.comments[index]['id']}`)
+          instance.delete(apiURL + `/article/${this.articleId}/comment/${this.comments[index]['id']}`)
             .then(function (response) {
               console.log(response);
               if (response.data.code == 200) {
